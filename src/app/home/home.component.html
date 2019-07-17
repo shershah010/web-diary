@@ -1,0 +1,9 @@
+<ul *ngIf="loaded">
+  <li [routerLink]="['create']"><h2>+ Create New Component</h2></li>
+  <li *ngFor="let entry of entries" [routerLink]="['edit']" [queryParams]="{fname: entry.title}">
+    <h2>{{ entry.title }}</h2>
+    <h3>{{ entry.date }}</h3>
+    <h3>{{ entry.startTime }} - {{ entry.endTime }}</h3>
+    <p>{{ entry.preview }}</p>
+  </li>
+</ul>

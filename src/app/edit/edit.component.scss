@@ -1,0 +1,41 @@
+div {
+  padding: 25px;
+}
+
+textarea, input, select {
+  font-family: inherit;
+  font-size: inherit;
+  margin: 25px;
+  border-radius: 0px;
+  border: 3px solid #dddddd;
+  padding: 5px;
+
+  &:focus {
+    border-color: #999999;
+  }
+}
+
+h1, h3 {
+  color: #ffffff;
+}
+
+button {
+  background: #ffffff;
+  border-radius: 100%;
+  width: 75px;
+  height: 75px;
+  border: 3px solid #dddddd;
+
+  &:hover {
+    background: #f0f0f0;
+    border-color: #999999;
+  }
+}
+
+input[type="submit"] {
+  background: #ffffff;
+
+  &:hover {
+    background: #f0f0f0;
+  }
+}

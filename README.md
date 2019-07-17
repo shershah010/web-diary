@@ -1,27 +1,17 @@
-# WebDiary
+# Web Diary
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.1.
+## Prerequisites
+* NodeJS
+* MongoDB Atlas with cluster with the following keys: `title`, `date`, `startTime`, `endTime`, `content`
 
-## Development server
+## Set Up
+* Navigate to the `/backend/index.js` file and place your mongoDB username and password to connect to your mongoDB Atlas account.
+* Replace the database name and cluster name with your own.
+* Make sure the ports 4001 and 4004 are not being used.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Run
+Run the following commands in bash and then navigate to `localhost:4001`
+```bash
+cd web-diary
+npm start & cd backend; npm start
+```

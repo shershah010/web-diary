@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -11,6 +12,7 @@ import { CreateComponent } from './create/create.component';
 
 import { GetDiaryService } from './service/get-diary.service';
 
+import { FilterPipe} from './home/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -18,12 +20,14 @@ import { GetDiaryService } from './service/get-diary.service';
     HomeComponent,
     EditComponent,
     CreateComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
     GetDiaryService

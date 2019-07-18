@@ -10,6 +10,7 @@ export class HomeComponent implements OnInit {
 
   entries: Array<Entry> = [];
   loaded: boolean = true;
+  title: string;
 
   constructor(private getDiaryService: GetDiaryService) {
     this.getDiaryService.getEntries().then(response => {

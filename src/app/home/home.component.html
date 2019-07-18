@@ -1,6 +1,9 @@
 <ul *ngIf="loaded">
-  <li [routerLink]="['create']"><h2>+ Create New Component</h2></li>
-  <li *ngFor="let entry of entries" [routerLink]="['edit']" [queryParams]="{fname: entry.title}">
+  <li><h2>Filter Entries By Title</h2>
+    <input [(ngModel)]='title' type="text" placeholder="entry title" />
+  </li>
+  <li [routerLink]="['create']"><h2>+ Create New Entry</h2></li>
+  <li *ngFor="let entry of entries | titleFilter: title" [routerLink]="['edit']" [queryParams]="{fname: entry.title}">
     <h2>{{ entry.title }}</h2>
     <h3>{{ entry.date }}</h3>
     <h3>{{ entry.startTime }} - {{ entry.endTime }}</h3>

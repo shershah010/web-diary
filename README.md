@@ -3,9 +3,11 @@
 ## Prerequisites
 * NodeJS
 * MongoDB Atlas with cluster with the following keys: `title`, `date`, `startTime`, `endTime`, `content`
+* Auth0 account
 
 ## Set Up
 * Navigate to the `/backend/index.js` file and place your mongoDB username and password to connect to your mongoDB Atlas account.
+* Navigate to the `/src/app/service/auth.service` and place your Auth0 domain and client-id in the appropriate fields.
 * Replace the database name and cluster name with your own.
 * Make sure the ports 4001 and 4004 are not being used.
 

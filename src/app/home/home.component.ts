@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { GetDiaryService } from '../service/get-diary.service'
+import { GetDiaryService } from '../service/get-diary.service';
+import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +14,12 @@ export class HomeComponent implements OnInit {
   loaded: boolean = true;
   title: string;
 
-  constructor(private getDiaryService: GetDiaryService) {
+  isAuthenticated = false;
+  profile: any;
+
+  private auth0Client: Auth0Client;
+
+  constructor(private getDiaryService: GetDiaryService, private authService: AuthService) {
     this.getDiaryService.getEntries().then(response => {
       let files = response['data'];
       for (let i = 0; i < files.length; i++) {
@@ -29,8 +36,40 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  /**
+   * Handle component initialization
+   */
+  async ngOnInit() {
+    // Get an instance of the Auth0 client
+    this.auth0Client = await this.authService.getAuth0Client();
 
-  ngOnInit() { }
+    // Watch for changes to the isAuthenticated state
+    this.authService.isAuthenticated.subscribe(value => {
+      this.isAuthenticated = value;
+    });
+
+    // Watch for changes to the profile data
+    this.authService.profile.subscribe(profile => {
+      this.profile = profile;
+    });
+  }
+
+  /**
+   * Logs in the user by redirecting to Auth0 for authentication
+   */
+  async login() {
+    await this.auth0Client.loginWithRedirect({});
+  }
+
+  /**
+   * Logs the user out of the applicaion, as well as on Auth0
+   */
+  logout() {
+    this.auth0Client.logout({
+      client_id: this.authService.config.client_id,
+      returnTo: window.location.origin
+    });
+  }
 
 }
 

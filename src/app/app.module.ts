@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { EditComponent } from './edit/edit.component';
 import { CreateComponent } from './create/create.component';
+import { CallbackComponent } from './callback/callback.component';
 
 import { GetDiaryService } from './service/get-diary.service';
 
@@ -20,7 +21,8 @@ import { FilterPipe} from './home/filter.pipe';
     HomeComponent,
     EditComponent,
     CreateComponent,
-    FilterPipe
+    FilterPipe,
+    CallbackComponent
   ],
   imports: [
     BrowserModule,

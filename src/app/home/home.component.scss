@@ -19,16 +19,18 @@ li {
 
 input {
   border: 0px;
-  border-bottom: 2px solid #55d400;
-  font-size: 16px;
+  border-bottom: 2px solid #83d04f;
+  font-size: 20px;
   padding: 10px;
+  box-sizing: border-box;
+  width: 90%;
 
   &:focus {
-    border-bottom: 4px solid #55d400;
+    border-bottom: 4px solid #83d04f;
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 1200px) {
   li {
     width: 50%;
   }

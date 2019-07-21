@@ -18,7 +18,7 @@ function angularRouter(req, res) {
   res.render('index', { req, res });
 }
 
-const app = express();
+const app = express(); 
 
 /* Root route before static files, or it will serve a static index.html, without pre-rendering */
 app.get('/', angularRouter);

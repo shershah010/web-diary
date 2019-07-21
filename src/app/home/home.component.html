@@ -1,7 +1,7 @@
-<div>
+<nav>
   <button (click)="login()" *ngIf="!isAuthenticated">Log In</button>
   <button (click)="logout()" *ngIf="isAuthenticated">Log Out</button>
-</div>
+</nav>
 <div *ngIf="isAuthenticated">
   <ul *ngIf="loaded">
     <li [routerLink]="['create']"><h2>+ Create New Entry</h2></li>

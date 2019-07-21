@@ -1,14 +1,21 @@
+nav {
+  width: 100%;
+  background-color: #ffffff;
+  padding: 10px;
+  box-shadow: 0 5px 6px rgba(0,0,0,0.18), 0 3px 5px rgba(0,0,0,0.23);
+}
+
 button {
-  background-color: #83d04f;
-  border-radius: 3px;
-  border: 1px solid #ffffff;
+  background-color: #ffffff;
+  border-radius: 5px;
+  border: 2px solid #83d04f;
   padding: 10px 50px;
   margin: 10px;
-  color: #ffffff;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.16), 0 1px 2px rgba(0,0,0,0.23);
+  color: #83d04f;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.14), 0 1px 2px rgba(0,0,0,0.19);
 
   &:hover {
-    background-color: darken(#83d04f, 5%);
+    background-color: darken(#ffffff, 5%);
   }
 }
 

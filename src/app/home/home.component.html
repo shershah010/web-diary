@@ -2,6 +2,9 @@
   <button (click)="login()" *ngIf="!isAuthenticated">Log In</button>
   <button (click)="logout()" *ngIf="isAuthenticated">Log Out</button>
 </nav>
+<div *ngIf="!isAuthenticated" class="title">
+  <h1>Only the Author Can Access the Diary</h1>
+</div>
 <div *ngIf="isAuthenticated">
   <ul *ngIf="loaded">
     <li [routerLink]="['create']"><h2>+ Create New Entry</h2></li>

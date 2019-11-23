@@ -52,3 +52,9 @@ Thumbs.db
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+# ipython checkpoints
+/ml-models/.ipynb_checkpoints/
+
+# csv files
+/ml-models/*.csv

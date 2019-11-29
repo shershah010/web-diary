@@ -3,8 +3,10 @@
   <h1>{{ title }}</h1>
   <form [formGroup]="diaryForm" (ngSubmit)="onSubmit()">
     <input type="text" formControlName="date">
-    <label>Good Mood?</label>
-    <input type="checkbox" formControlName="goodMood">
+    <label class="container">Good Mood?
+      <input type="checkbox" formControlName="goodMood">
+      <span class="checkmark"></span>
+    </label>
     <br>
     <input type="text" formControlName="startTime">
     <input type="text" formControlName="endTime"> <br>

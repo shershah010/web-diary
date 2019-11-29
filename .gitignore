@@ -57,4 +57,10 @@ Thumbs.db
 /ml-models/.ipynb_checkpoints/
 
 # csv files
+*.csv
 /ml-models/*.csv
+/backend/*.csv
+
+# zip files
+*.zip
+/ml-models/*.zip

@@ -12,7 +12,7 @@
       <h2>Filter Entries By Title</h2>
       <input [(ngModel)]='title' type="text" placeholder="entry title" />
     </li>
-    <li *ngFor="let entry of entries | titleFilter: title" [routerLink]="['edit']" [queryParams]="{fname: entry.title}">
+    <li *ngFor="let entry of entries | titleFilter: title" [routerLink]="['edit']" [queryParams]="{fname: entry.title}" [style.background-color]="entry.color">
       <h2>{{ entry.title }}</h2>
       <h3>{{ entry.date }}</h3>
       <h3>{{ entry.startTime }} - {{ entry.endTime }}</h3>

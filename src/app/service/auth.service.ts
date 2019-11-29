@@ -6,7 +6,9 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
+
   isAuthenticated = new BehaviorSubject(false);
   profile = new BehaviorSubject<any>(null);
 
@@ -14,8 +16,8 @@ export class AuthService {
 
   // Auth0 application configuration
   config = {
-    domain: "<domain>.auth0.com",
-    client_id: "<client_id>",
+    domain: "domain",
+    client_id: "client_id", 
     redirect_uri: `${window.location.origin}/callback/`
   };
 

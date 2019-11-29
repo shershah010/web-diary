@@ -2,10 +2,13 @@
   <button [routerLink]="['']">Back</button>
   <h1>{{ title }}</h1>
   <form [formGroup]="diaryForm" (ngSubmit)="onSubmit()">
-    <input type="text" formControlName="date"> <br>
+    <input type="text" formControlName="date">
+    <label>Good Mood?</label>
+    <input type="checkbox" formControlName="goodMood">
+    <br>
     <input type="text" formControlName="startTime">
     <input type="text" formControlName="endTime"> <br>
-    <textarea type="text" rows="8" cols="100" formControlName="content"></textarea>
+    <textarea type="text" rows="12" cols="100" formControlName="content"></textarea>
     <input type="submit" value="submit">
   </form>
 </div>

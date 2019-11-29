@@ -1,14 +1,18 @@
-const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const fs = require('fs');
+
+const express = require('express');
 const app = express();
+
 const MongoClient = require("mongodb").MongoClient;
 const ObjectId = require("mongodb").ObjectID;
-const port = 4004;
-
-const CONNECTION_URL = "mongodb+srv://<username>:<password>@dentries-nsb6p.mongodb.net/test?retryWrites=true&w=majority";
+const CONNECTION_URL = "mongo_df_uri"; 
 const DATABASE_NAME = "diary_entries_db";
+
+const spawn = require("child_process").spawn;
+
+const port = 4004;
 
 let database, collection;
 
@@ -64,7 +68,19 @@ app.post('/create', (req, res) => {
         exists: null
       });
     } else if (result == null) {
-      collection.insertOne({title: entry.title, date: entry.date, startTime: entry.startTime, endTime: entry.endTime,  content: entry.content});
+      const pythonProcess = spawn('python3',["../ml-models/entry2mood.py", entry.content]);
+      pythonProcess.stdout.on('data', (data) => {
+        let goodMood = data.toString();
+        goodMood = goodMood == 1;
+        collection.insertOne({title: entry.title,
+          date: entry.date,
+          startTime: entry.startTime,
+          endTime: entry.endTime,
+          content: entry.content,
+          goodMood: goodMood
+        });
+      });
+
       res.status(200).send({
         success: 'true',
         message: 'successful read a file',
@@ -86,7 +102,8 @@ app.post('/update', (req, res) => {
                       {$set: {date: entry.date,
                               startTime: entry.startTime,
                               endTime: entry.endTime,
-                              content: entry.content}},
+                              content: entry.content,
+                              goodMood: entry.goodMood}},
                             (error, result) => {
                               if (error) {
                                 return res.status(500).send({
@@ -102,7 +119,7 @@ app.post('/update', (req, res) => {
 });
 
 app.listen(port, () => {
-  MongoClient.connect(CONNECTION_URL, { useNewUrlParser: true }, (error, client) => {
+  MongoClient.connect(CONNECTION_URL, { useUnifiedTopology: true, useNewUrlParser: true }, (error, client) => {
         if(error) {
             throw error;
         }

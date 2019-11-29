@@ -79,6 +79,7 @@ class Entry {
   startTime: string;
   endTime: string;
   preview: string;
+  color: string;
 
   constructor(entry: any) {
     this.title = entry.title;
@@ -86,6 +87,7 @@ class Entry {
     this.startTime = entry.startTime;
     this.endTime = entry.endTime;
     this.preview = entry.content.substr(0, 50) + "...";
+    this.color = entry.goodMood ? '#DEF3FD' : '#FDDFDF'
   }
 
 }

@@ -16,6 +16,7 @@ export class EditComponent implements OnInit {
    date: new FormControl(''),
    startTime: new FormControl(''),
    endTime: new FormControl(''),
+   goodMood: new FormControl(false),
    content: new FormControl(''),
   });
 
@@ -32,6 +33,7 @@ export class EditComponent implements OnInit {
       this.diaryForm.get('startTime').setValue(file.startTime);
       this.diaryForm.get('content').setValue(file.content);
       this.diaryForm.get('endTime').setValue(file.endTime);
+      this.diaryForm.get('goodMood').setValue(file.goodMood);
     });
   }
 

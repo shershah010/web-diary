@@ -33,6 +33,7 @@ export class CreateComponent implements OnInit {
     values['startTime'] = this.startTime;
     values['endTime'] = this.endTime;
     this.getDiaryService.writeNewTextFile(JSON.stringify(values)).then(response => {
+      console.log('hi');
       this.status = response['message'];
     });
   }

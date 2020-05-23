@@ -16,8 +16,8 @@ export class AuthService {
 
   // Auth0 application configuration
   config = {
-    domain: "domain",
-    client_id: "client_id", 
+    domain: "dev-6jj4hlp2.auth0.com",
+    client_id: "1UTqEsCQ31KdxBlwMDKUkpVPpKMsDFTl",
     redirect_uri: `${window.location.origin}/callback/`
   };
 

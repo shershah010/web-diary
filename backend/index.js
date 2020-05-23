@@ -7,7 +7,7 @@ const app = express();
 
 const MongoClient = require("mongodb").MongoClient;
 const ObjectId = require("mongodb").ObjectID;
-const CONNECTION_URL = "mongo_df_uri"; 
+const CONNECTION_URL = "mongodb+srv://user:Pizza.network1@dentries-nsb6p.mongodb.net/test?retryWrites=true&w=majority";
 const DATABASE_NAME = "diary_entries_db";
 
 const spawn = require("child_process").spawn;
@@ -72,7 +72,8 @@ app.post('/create', (req, res) => {
       pythonProcess.stdout.on('data', (data) => {
         let goodMood = data.toString();
         goodMood = goodMood == 1;
-        collection.insertOne({title: entry.title,
+        collection.insertOne({
+          title: entry.title,
           date: entry.date,
           startTime: entry.startTime,
           endTime: entry.endTime,

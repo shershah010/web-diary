@@ -17,7 +17,7 @@ from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.linear_model import SGDClassifier
 
 if not os.path.exists('entries.csv'):
-    uri = "uri"
+    uri = "mongodb+srv://" + urllib.parse.quote("user") + ":" + urllib.parse.quote("Pizza.network1") + "@dentries-nsb6p.mongodb.net/test?retryWrites=true&w=majority"
     client = pymongo.MongoClient(uri)
     db = client.diary_entries_db
     db.list_collection_names()

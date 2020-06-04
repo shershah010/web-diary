@@ -1,0 +1,6 @@
+node_modules
+nom-debug.log
+.git
+.gitignore
+.editorconfig
+backend

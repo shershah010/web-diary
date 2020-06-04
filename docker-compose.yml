@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  client:
+    build:
+      context: ./ # specify the directory of the Dockerfile
+      dockerfile: Dockerfile
+    ports:
+      - 4001:4001
+    networks:
+      - backend-net
+  api:
+    build:  # specify the directory of the Dockerfile
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - 4004:4004
+    networks:
+      - backend-net
+
+networks:
+  backend-net:
+    driver: bridge

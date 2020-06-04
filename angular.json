@@ -17,6 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/web-diary",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -53,6 +54,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             }
@@ -118,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "web-diary"
+    }
+  },
+  "defaultProject": "web-diary",
+  "cli": {
+    "analytics": "c0e737d0-11e4-4818-a62e-917518b5400f"
+  }
 }

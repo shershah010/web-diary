@@ -42,6 +42,8 @@ export class GetDiaryService {
           return new Promise(function(resolve, reject) {
             return "bad title";
           });
+        } else {
+          return response;
         }
       });
   }

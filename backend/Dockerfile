@@ -7,6 +7,7 @@ RUN npm install
 
 COPY . .
 
+RUN python -m  pip install --upgrade pip
 RUN pip install -r ml-models/requirements.txt
 RUN python -m nltk.downloader stopwords
 

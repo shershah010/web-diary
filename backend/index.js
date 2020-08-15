@@ -7,7 +7,7 @@ const app = express();
 
 const MongoClient = require("mongodb").MongoClient;
 const ObjectId = require("mongodb").ObjectID;
-const CONNECTION_URL = "mongodb+srv://user:Pizza.network1@dentries-nsb6p.mongodb.net/test?retryWrites=true&w=majority";
+const CONNECTION_URL = "mongodb+srv://user:PASSWORD@dentries-nsb6p.mongodb.net/test?retryWrites=true&w=majority";
 const DATABASE_NAME = "diary_entries_db";
 
 const spawn = require("child_process").spawn;
@@ -68,10 +68,11 @@ app.post('/create', (req, res) => {
         exists: null
       });
     } else if (result == null) {
-      const pythonProcess = spawn('python3',["../ml-models/entry2mood.py", entry.content]);
+      const pythonProcess = spawn('python', ["ml-models/word2vec.py", entry.content]);
       pythonProcess.stdout.on('data', (data) => {
-        let goodMood = data.toString();
-        goodMood = goodMood == 1;
+        console.log(data.toString());
+        let goodMood = data.toString().substr(0, 1);
+        goodMood = goodMood === '1';
         collection.insertOne({
           title: entry.title,
           date: entry.date,
@@ -80,6 +81,10 @@ app.post('/create', (req, res) => {
           content: entry.content,
           goodMood: goodMood
         });
+      });
+
+      pythonProcess.on('error', function(error) {
+        console.log(error);
       });
 
       res.status(200).send({

@@ -1,7 +1,6 @@
-pymongo
-pandas
 numpy
-nltk
-sklearn
-keras
-tensorflow
+pandas
+pymongo
+matplotlib
+tensorflow==2.3
+tensorflow-datasets

@@ -3,7 +3,11 @@ import sys
 import re
 import pymongo
 import urllib
-import pickle
+
+# stderr = sys.stderr
+# stdout = sys.stdout
+# sys.stderr = open(os.devnull, 'w')
+# sys.stdout = open(os.devnull, 'w')
 
 import pandas as pd
 import numpy as np
@@ -13,24 +17,17 @@ from sklearn.feature_extraction.text import TfidfTransformer, TfidfVectorizer, C
 from sklearn.linear_model import LogisticRegression
 
 import keras as K
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
+import tensorflow as tf
 from tensorflow.python.keras.preprocessing.text import Tokenizer
 from tensorflow.python.keras.preprocessing.sequence import pad_sequences
 
-svm_filename = 'svm_model.pkl'
-tfidf_filename = 'tfidf_model.pkl'
-w2v_filename = 'w2v_filename.pkl'
-
-with open(svm_filename, 'rb') as file:
-    svm_model = pickle.load(file)
-
-with open(tfidf_filename, 'rb') as file:
-    tfidf_logistic_model = pickle.load(file)
-
-with open(w2v_filename, 'rb') as file:
-    w2v_model = pickle.load(file)
+tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
 if not os.path.exists('entries.csv'):
-    uri = "mongodb+srv://" + urllib.parse.quote("user") + ":" + urllib.parse.quote("PASSWORD") + "@dentries-nsb6p.mongodb.net/test?retryWrites=true&w=majority"
+    uri = "mongodb+srv://" + urllib.parse.quote("user") + ":" + urllib.parse.quote("Pizza.network1") + "@dentries-nsb6p.mongodb.net/test?retryWrites=true&w=majority"
     client = pymongo.MongoClient(uri)
     db = client.diary_entries_db
     db.list_collection_names()
@@ -75,17 +72,21 @@ def all_classifier_predictor(data):
     tokenized = tokenizer_obj.texts_to_sequences(data)
     padded = pad_sequences(tokenized, maxlen=max_length, padding='post')
 
-    svm_predictions = svm_model.predict(counts)
+    #svm_predictions = svm_model.predict(counts)
     tfidf_predictions = tfidf_logistic_model.predict(vectorized)
-    w2v_predictions = [i[0] for i in np.round(w2v_model.predict(padded))]
+    #w2v_predictions = [i[0] for i in np.round(w2v_model.predict(padded))]
 
-    all_predictions = np.array([svm_predictions,
+    all_predictions = np.array([#svm_predictions,
                                 tfidf_predictions,
-                                w2v_predictions])
+                                #w2v_predictions
+                                ])
 
     return stats.mode(all_predictions, axis=0)[0]
 
-prediction = all_classifier_predictor([sys.argv[0]])
+prediction = all_classifier_predictor([sys.argv[1]])
 
-print(prediction[0][0])
+# sys.stderr = stderr
+# sys.stdout = stdout
+
+print(int(prediction[0][0]))
 sys.stdout.flush()

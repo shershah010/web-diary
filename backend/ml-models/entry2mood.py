@@ -27,7 +27,7 @@ from tensorflow.python.keras.preprocessing.sequence import pad_sequences
 tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
 if not os.path.exists('entries.csv'):
-    uri = "mongodb+srv://" + urllib.parse.quote("user") + ":" + urllib.parse.quote("Pizza.network1") + "@dentries-nsb6p.mongodb.net/test?retryWrites=true&w=majority"
+    uri = "mongodb+srv://" + urllib.parse.quote("user") + ":" + urllib.parse.quote("PASSWORD") + "@dentries-nsb6p.mongodb.net/test?retryWrites=true&w=majority"
     client = pymongo.MongoClient(uri)
     db = client.diary_entries_db
     db.list_collection_names()

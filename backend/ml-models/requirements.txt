@@ -3,5 +3,5 @@ numpy==1.18
 pandas
 pymongo
 matplotlib
-tensorflow==2.5.0
+tensorflow==2.5.2
 tensorflow-datasets

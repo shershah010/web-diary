@@ -1,0 +1,47 @@
+version: "3.9"
+services:
+  web-diary-frontend:
+    build:
+      context: ./frontend
+    image: web-diary-frontend
+    ports:
+      - "4001:80"
+    networks:
+      - web-diary-network
+
+  web-diary-backend:
+    build:
+      context: ./backend
+    image: web-diary-backend
+    ports:
+      - "4002:80"
+    networks:
+      - web-diary-network
+
+  web-diary-ml:
+    build:
+      context: ./models
+    image: web-diary-ml
+    ports:
+      - "4003:80"
+    networks:
+      - web-diary-network
+
+  reverse-proxy:
+    build:
+      context: ./proxy
+    image: reverse-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - web-diary-network
+    depends_on:
+      - web-diary-frontend
+      - web-diary-backend
+      - web-diary-ml
+
+networks:
+  web-diary-network:
+    driver: bridge
+

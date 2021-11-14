@@ -41,7 +41,7 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
-/src/assets/Diary/
+/frontend/src/assets/Diary/
 /backend/node_modules/
 
 # System Files

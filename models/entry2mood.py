@@ -12,21 +12,6 @@ import torch
 from transformers import RobertaConfig, RobertaModel
 from transformers import RobertaTokenizer
 
-# if not os.path.exists('entries.csv'):
-#     uri = "mongodb+srv://user:VgbndHSiFjBkcVHq@dentries-nsb6p.mongodb.net/test?retryWrites=true&w=majority"
-#     client = MongoClient(uri)
-#     db = client.diary_entries_db
-#     db.list_collection_names()
-#     collection = db['diary_entries']
-#     df = pd.DataFrame(list(collection.find()))
-#     df.to_csv('entries.csv')
-# else:
-#     df = pd.read_csv('entries.csv')
-
-
-# df = df.drop(columns=['_id', 'date', 'startTime', 'endTime'])
-# df['goodMood'] = df['goodMood'].replace({True: 1, False: 0})
-
 # Set current path to path where this file is located and thus where the model is located
 abspath = os.path.abspath(__file__)
 dname = os.path.dirname(abspath)

@@ -1,0 +1,9 @@
+<div>
+  <button [routerLink]="['']">Back</button>
+  <form [formGroup]="diaryForm" (ngSubmit)="onSubmit()">
+    <input type="text" formControlName="title"> <br>
+    <textarea type="text" rows="12" cols="100" formControlName="content"></textarea>
+    <input type="submit" value="submit">
+  </form>
+</div>
+<h3>{{ status }}</h3>

@@ -1,5 +1,6 @@
 import subprocess
 from flask import Flask, request
+from entry2mood import get_prediction
 
 app = Flask(__name__)
 
@@ -10,7 +11,7 @@ def hello_world():
 
 @app.route('/get_mood', methods=['POST'])
 def get_mood():
-    return subprocess.check_output(['python3', 'entry2mood.py', request.json.get('content', '')])
+    return get_prediction(request.json.get('content', ''))
 
 if __name__ == '__main__':
     # context = ('tls/web-diary-ml.sher.com.crt', 'tls/web-diary-ml.sher.com.key')

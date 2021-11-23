@@ -1,21 +1,5 @@
-import os
-import sys
-import re
-import pymongo
-import urllib
-
-from pymongo import MongoClient
-
-import pandas as pd
-import numpy as np
 import torch
-from transformers import RobertaConfig, RobertaModel
-from transformers import RobertaTokenizer
-
-# Set current path to path where this file is located and thus where the model is located
-abspath = os.path.abspath(__file__)
-dname = os.path.dirname(abspath)
-os.chdir(dname)
+from transformers import RobertaModel, RobertaTokenizer
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 model = RobertaModel.from_pretrained('roberta-base').to(device)
@@ -52,8 +36,3 @@ def get_prediction(text):
     encoding, attention_mask = data['input_ids'].to(device), data['attention_mask'].to(device)
     predictions = dj_model(encoding, attention_mask)
     return np.argmax(predictions.detach().numpy())
-
-prediction = get_prediction(sys.argv[1])
-
-print(int(prediction))
-sys.stdout.flush()

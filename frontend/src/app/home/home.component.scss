@@ -19,6 +19,8 @@ button {
 }
 
 ul {
+  margin: 30px;
+  padding: 0px;
   list-style: none;
 }
 
@@ -51,11 +53,27 @@ input {
 }
 
 .title {
-
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+}
+
+.zoomed-out {
+  .entry {
+    padding: 0px;
+    margin: 5px;
+    height: 50px;
+    width: 50px;
+
+    & > * {
+      display: none;
+    }
+  }
+
+  .not-entry {
+    display: none;
+  }
 }
 
 @media (max-width: 1200px) {

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { GetDiaryService } from '../service/get-diary.service';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-create',
@@ -22,12 +21,13 @@ export class CreateComponent implements OnInit {
   constructor(private getDiaryService: GetDiaryService) { }
 
   ngOnInit() {
-    this.date = moment().format('l');
-    this.startTime = moment().format('LT');
+    const datetime = new Date();
+    this.date = datetime.toLocaleDateString();
+    this.startTime = datetime.toLocaleTimeString('en-US', {hour: 'numeric', minute: 'numeric'});
   }
 
   onSubmit() {
-    this.endTime = moment().format('LT');
+    this.endTime = (new Date()).toLocaleTimeString('en-US', {hour: 'numeric', minute: 'numeric'});
     let values = Object.assign(this.diaryForm.value);
     values['date'] = this.date;
     values['startTime'] = this.startTime;

@@ -13,9 +13,9 @@ export class HomeComponent implements OnInit {
   entries: Array<Entry> = [];
   loaded: boolean = true;
   title: string;
-
-  isAuthenticated = false;
+  isAuthenticated: boolean = false;
   profile: any;
+  zoomedIn: boolean = true;
 
   private auth0Client: Auth0Client;
 
@@ -69,6 +69,10 @@ export class HomeComponent implements OnInit {
       client_id: this.authService.config.client_id,
       returnTo: window.location.origin
     });
+  }
+
+  zoom() {
+    this.zoomedIn = !this.zoomedIn;
   }
 
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '@auth0/auth0-angular';
 import { GetDiaryService } from '../service/get-diary.service';
-import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
-import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -13,13 +12,12 @@ export class HomeComponent implements OnInit {
   entries: Array<Entry> = [];
   loaded: boolean = true;
   title: string;
-  isAuthenticated: boolean = false;
   profile: any;
   zoomedIn: boolean = true;
 
-  private auth0Client: Auth0Client;
-
-  constructor(private getDiaryService: GetDiaryService, private authService: AuthService) {
+  constructor(
+    private getDiaryService: GetDiaryService, 
+    public auth: AuthService) {
     this.getDiaryService.getEntries().then(response => {
       let files = response['data'];
       for (let i = 0; i < files.length; i++) {
@@ -39,36 +37,23 @@ export class HomeComponent implements OnInit {
   /**
    * Handle component initialization
    */
-  async ngOnInit() {
-    // Get an instance of the Auth0 client
-    this.auth0Client = await this.authService.getAuth0Client();
-
-    // Watch for changes to the isAuthenticated state
-    this.authService.isAuthenticated.subscribe(value => {
-      this.isAuthenticated = value;
-    });
-
-    // Watch for changes to the profile data
-    this.authService.profile.subscribe(profile => {
-      this.profile = profile;
-    });
-  }
+ ngOnInit() {  }
 
   /**
    * Logs in the user by redirecting to Auth0 for authentication
    */
-  async login() {
-    await this.auth0Client.loginWithRedirect({});
+  loginWithRedirect(): void {
+    // Call this to redirect the user tothe login page
+    this.auth.loginWithRedirect();
   }
 
   /**
    * Logs the user out of the applicaion, as well as on Auth0
    */
   logout() {
-    this.auth0Client.logout({
-      client_id: this.authService.config.client_id,
+    this.auth.logout({
       returnTo: window.location.origin
-    });
+    })
   }
 
   zoom() {

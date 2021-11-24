@@ -1,11 +1,11 @@
 <nav>
-  <button (click)="login()" *ngIf="!isAuthenticated">Log In</button>
-  <button (click)="logout()" *ngIf="isAuthenticated">Log Out</button>
+  <button (click)="loginWithRedirect()" *ngIf="(auth.isAuthenticated$ | async) === false">Log In</button>
+  <button (click)="logout()" *ngIf="auth.isAuthenticated$ | async">Log Out</button>
 </nav>
-<div *ngIf="!isAuthenticated" class="title">
+<div *ngIf="(auth.isAuthenticated$ | async) === false" class="title">
   <h1>Only the Author Can Access the Diary</h1>
 </div>
-<div *ngIf="isAuthenticated">
+<div *ngIf="auth.isAuthenticated$ | async">
   <button (click)="zoom()">Zoom <span *ngIf="zoomedIn">Out</span><span *ngIf="!zoomedIn">In</span></button>
   <ul *ngIf="loaded" [ngClass]="{'zoomed-out': !zoomedIn}">
     <li class="not-entry" [routerLink]="['create']"><h2>+ Create New Entry</h2></li>
@@ -13,11 +13,12 @@
       <h2>Filter Entries By Title</h2>
       <input [(ngModel)]='title' type="text" placeholder="entry title" />
     </li>
-    <li class="entry" *ngFor="let entry of entries | titleFilter: title" [routerLink]="['edit']" [queryParams]="{fname: entry.title}" [style.background-color]="entry.color">
+    <li class="entry" *ngFor="let entry of entries | titleFilter: title; index as i" [routerLink]="['edit']" [queryParams]="{fname: entry.title}" [style.background-color]="entry.color">
       <h2>{{ entry.title }}</h2>
       <h3>{{ entry.date }}</h3>
       <h3>{{ entry.startTime }} - {{ entry.endTime }}</h3>
       <p>{{ entry.preview }}</p>
+      <p class="right">{{ entries.length - i }}/{{ entries.length }}</p>
     </li>
   </ul>
 </div>

@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from './service/auth.guard';
+import { AuthGuard } from '@auth0/auth0-angular';
 
 import { HomeComponent } from './home/home.component';
 import { EditComponent } from './edit/edit.component';
 import { CreateComponent } from './create/create.component';
-import { CallbackComponent } from './callback/callback.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -18,9 +17,7 @@ export const routes: Routes = [
     component: CreateComponent,
     canActivate: [
       AuthGuard
-    ]},
-  { path: 'callback',
-    component: CallbackComponent,
+    ]
   },
   { path: '**', redirectTo: ''}
 ];

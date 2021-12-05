@@ -1,6 +1,3 @@
 flask
-numpy
-pandas
 pymongo
-pytorch
-transformers
+vaderSentiment

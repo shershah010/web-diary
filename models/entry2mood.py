@@ -1,38 +1,53 @@
-import torch
-from transformers import RobertaModel, RobertaTokenizer
+import re
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
-device = 'cuda' if torch.cuda.is_available() else 'cpu'
-model = RobertaModel.from_pretrained('roberta-base').to(device)
-tokenizer = RobertaTokenizer.from_pretrained('roberta-base')
+class Tokenizer():
+    def __init__(self):
+        pass
+    
+    def tokenize(self, dirty_paragraph):
+        clean_paragraph = self.preprocess(dirty_paragraph)
+        return self.paragraph_tokenize(clean_paragraph)
+    
+    def preprocess(self, paragraph):
+        # Remove common abbrivations containing stop tokens
+        paragraph = paragraph.replace('i.e.', 'ie')
+        paragraph = paragraph.replace('e.g.', 'eg')
+        paragraph = paragraph.replace('...', '.')
+        # Remove special tokens
+        paragraph = paragraph.replace(',', '')
+        paragraph = paragraph.replace('(', '')
+        paragraph = paragraph.replace(')', '')
+        # Expand concatinations
+        paragraph = paragraph.replace('can\'t', 'cannot')
+        paragraph = paragraph.replace('ain\'t', 'is not')
+        paragraph = paragraph.replace('won\'t', 'would not')
+        paragraph = paragraph.replace('n\'t', ' not')
+        paragraph = paragraph.replace('\'ll', ' will')
+        return paragraph
 
-model.eval()
+    def paragraph_tokenize(self, paragraph):
+        # split on stop tokens
+        sentences = re.split('\.|!|\?', paragraph)
+        return [sentence_tokenize(sentence) for sentence in sentences]
 
-class RoBERTaModel(torch.nn.Module):
-    def __init__(self, dropout=0):
-        super().__init__()  
-        self.bert = model    
-        self.drop = torch.nn.Dropout(p=dropout)
-        self.dense = torch.nn.Linear(768, 2)
-        torch.nn.init.xavier_normal_(self.dense.weight)
-        
-    def forward(self, input_ids, attention_mask):     
-        encoded_layers = model(input_ids=input_ids, attention_mask=attention_mask)
-        roberta_output = encoded_layers['pooler_output']
-        out = self.drop(roberta_output)
-        logits = self.dense(out)
-        return logits
+    def sentence_tokenize(self, sentence):
+        words = sentence.split(' ')
+        return [word_tokenize(word) for word in words if word != '']
 
-    def freeze_bert_encoder(self):
-        for param in self.bert.parameters():
-            param.requires_grad = False
+    def word_tokenize(self, word):
+        return word.lower()
 
-dj_model = RoBERTaModel(0.1)
-dj_model.load_state_dict(torch.load('dj_model.pt', map_location=torch.device(device)))
-dj_model.to(device)
-dj_model.eval()
 
 def get_prediction(text):
-    data = tokenizer(text, return_tensors="pt", padding=True, truncation=True)
-    encoding, attention_mask = data['input_ids'].to(device), data['attention_mask'].to(device)
-    predictions = dj_model(encoding, attention_mask)
-    return np.argmax(predictions.detach().numpy())
+    analyzer = SentimentIntensityAnalyzer()
+    tokenizer = Tokenizer()
+    tokenized_paragraph = tokenizer.tokenize(paragraph)
+    sentences = [' '.join(sentence) for sentence in tokenized_paragraph]
+    neg, pos = 0, 0
+    for sentence in sentences:
+        vs = analyzer.polarity_scores(sentence)
+        neg += vs['neg']
+        pos += vs['pos']
+
+    return int(pos >= neg)

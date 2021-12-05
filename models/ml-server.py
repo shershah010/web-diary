@@ -1,4 +1,3 @@
-import subprocess
 from flask import Flask, request
 from entry2mood import get_prediction
 

@@ -5,8 +5,11 @@ A personal diary web application that also does sentiment analysis.
 ## Structure
 
 `backend/` - Handles getting and sending data to the MongoDB database. Also sends data to the models to preform sentiment analysis.
+
 `fronted/` - Provides AAA usign Auth0. Allows user to add entries and view pass ones.
+
 `models/`  - Does sentiment  analysis.
+
 `proxy/`   - Does a reverse proxy and provides tls.
 
 ## To Use

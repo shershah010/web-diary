@@ -8,7 +8,7 @@ const app = express();
 /** Declare  configs in order to connect to MongoDB. */
 config = JSON.parse(fs.readFileSync("./config.json"));
 const MongoClient = require("mongodb").MongoClient;
-const CONNECTION_URL = "mongodb+srv://" + config["mongodb"]["username"] + ":" + config["mongodb"]["password"] + "@dentries-nsb6p.mongodb.net/test?retryWrites=true&w=majority";
+const CONNECTION_URL = "mongodb+srv://" + config["mongodb"]["username"] + ":" + config["mongodb"]["password"] + "@" + config["mongodb"]["url"] +"/test?retryWrites=true&w=majority";
 const DATABASE_NAME = "diary_entries_db";
 let database, collection;
 

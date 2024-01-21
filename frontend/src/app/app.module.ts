@@ -1,3 +1,6 @@
+/** Loads all the components and modules for Angular to register them. New
+ * components should be imported here and added to the `declarations` section.
+ */
 import Config from '../assets/config.json';
 
 import { NgModule } from '@angular/core';
@@ -34,7 +37,10 @@ import { FilterPipe} from './home/filter.pipe';
     FormsModule,
     AuthModule.forRoot({
       domain: Config.auth0.domain,
-      clientId: Config.auth0.client_id
+      clientId: Config.auth0.client_id,
+      authorizationParams: {
+        redirect_uri: window.location.origin
+      }
     })
   ],
   providers: [

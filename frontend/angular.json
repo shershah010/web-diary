@@ -43,7 +43,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -66,18 +65,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "web-diary:build"
+            "buildTarget": "web-diary:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "web-diary:build:production"
+              "buildTarget": "web-diary:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "web-diary:build"
+            "buildTarget": "web-diary:build"
           }
         },
         "test": {
@@ -125,7 +124,6 @@
       }
     }
   },
-  "defaultProject": "web-diary",
   "cli": {
     "analytics": "c0e737d0-11e4-4818-a62e-917518b5400f"
   }

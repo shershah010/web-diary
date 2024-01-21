@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 import { GetDiaryService } from '../service/get-diary.service';
 
 @Component({
@@ -9,32 +9,39 @@ import { GetDiaryService } from '../service/get-diary.service';
 })
 export class CreateComponent implements OnInit {
 
+  /** Variable holding the message returned by the backend. */
   status: string;
+
+  /** The time when the page loads in the ISO8601 format. */
   startTime: string;
-  endTime: string;
+
+  /** Today's date taken when the page loads. */
   date: string;
-  diaryForm = new FormGroup({
-   title: new FormControl(''),
-   content: new FormControl(''),
+
+  /** The parts of the diary the user can modify. */
+  diaryForm = new UntypedFormGroup({
+   title: new UntypedFormControl(''),
+   content: new UntypedFormControl(''),
   });
 
   constructor(private getDiaryService: GetDiaryService) { }
 
+  /** Initalize the start time and data when the page loads. */
   ngOnInit() {
     const datetime = new Date();
     this.date = datetime.toLocaleDateString();
     this.startTime = datetime.toLocaleTimeString('en-US', {hour: 'numeric', minute: 'numeric'});
   }
 
+  /** Creates a new entry and prints the response from the backend. */
   onSubmit() {
-    this.endTime = (new Date()).toLocaleTimeString('en-US', {hour: 'numeric', minute: 'numeric'});
-    let values = Object.assign(this.diaryForm.value);
+    const endTime = (new Date()).toLocaleTimeString('en-US', {hour: 'numeric', minute: 'numeric'});
+    const values = Object.assign(this.diaryForm.value);
     values['date'] = this.date;
     values['startTime'] = this.startTime;
-    values['endTime'] = this.endTime;
-    this.getDiaryService.writeNewTextFile(JSON.stringify(values)).then(response => {
-      this.status = response['message'];
-    });
+    values['endTime'] = endTime;
+    const response = this.getDiaryService.writeNewTextFile(values);
+    this.status = response['message'];
   }
 
 }

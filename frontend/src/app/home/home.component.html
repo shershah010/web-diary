@@ -7,7 +7,7 @@
 </div>
 <div *ngIf="auth.isAuthenticated$ | async">
   <button (click)="zoom()">Zoom <span *ngIf="zoomedIn">Out</span><span *ngIf="!zoomedIn">In</span></button>
-  <ul *ngIf="loaded" [ngClass]="{'zoomed-out': !zoomedIn}">
+  <ul [ngClass]="{'zoomed-out': !zoomedIn}">
     <li class="not-entry" [routerLink]="['create']"><h2>+ Create New Entry</h2></li>
     <li class="not-entry">
       <h2>Filter Entries By Title</h2>

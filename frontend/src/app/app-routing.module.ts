@@ -1,3 +1,6 @@
+/** Defines url routing for the frontend. Maps different endpoints to 
+ * components. */
+
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '@auth0/auth0-angular';

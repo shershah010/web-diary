@@ -1,3 +1,9 @@
+# Defines the Web Diary services needed to interact with the site. Consists of
+# a frontend web server to display and filter entries, and authenticates the 
+# user; a backend server that adds sentiment analysis and connects to the 
+# MongoDB cloud instance; another backend server that preforms semantic 
+# analysis; and a proxy that preforms SSL-termination and networking between the
+#  services.
 version: "3.9"
 services:
   web-diary-frontend:
@@ -44,4 +50,5 @@ services:
 networks:
   web-diary-network:
     driver: bridge
+
 

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BackendMsg } from '../model/response';
+import { Entry } from '../model/entry';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +12,7 @@ export class GetDiaryService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-    })
+    }),
   };
 
   constructor(private http: HttpClient) {
@@ -19,7 +21,8 @@ export class GetDiaryService {
   /** Fetches all journal entries. The `toPromise` allows the call to be 
    * completed by the `await` keyword before returning. */
   async getEntries() {
-    return await this.http.get('https://web-diary-be.sher.com/entry').toPromise();
+    const response = await this.http.get<BackendMsg>('https://web-diary-be.sher.com/entry', this.httpOptions).toPromise();
+    return response;
   }
 
 
@@ -28,15 +31,16 @@ export class GetDiaryService {
     // The Observable returned by get() is of type Observable<string>
     // because a text response was specified.
     // There's no need to pass a <string> type parameter to get().
-    return await this.http.get('https://web-diary-be.sher.com/entry/' + filename).toPromise();
+    const response =  await this.http.get<BackendMsg>('https://web-diary-be.sher.com/entry/' + filename, this.httpOptions).toPromise();
+    return response;
   }
 
   /** Atempts to create the post but first checks if an entry with the same 
    * title exists. If it does, then inform the user to change the title. */
   async writeNewTextFile(entry: any) {
-    const response = await this.http.post('https://web-diary-be.sher.com/create', {entry: entry}).toPromise();
+    const response = await this.http.post<BackendMsg>('https://web-diary-be.sher.com/create', entry, this.httpOptions).toPromise();
 
-    if (response['exists']) {
+    if (response.success == 'false') {
       alert("Please change the title, it is already taken!");
       return "bad title";
     } else {
@@ -45,7 +49,8 @@ export class GetDiaryService {
   }
 
   /** Updates an existing entry. */
-  async writeTextFile(entry: any) {
-    return await this.http.post('https://web-diary-be.sher.com/update', entry).toPromise();
+  async writeTextFile(entry: Entry) {
+    const response = await this.http.post<BackendMsg>('https://web-diary-be.sher.com/update', entry, this.httpOptions).toPromise();
+    return response;
   }
 }

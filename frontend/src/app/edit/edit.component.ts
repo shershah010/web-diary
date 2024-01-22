@@ -36,7 +36,7 @@ export class EditComponent implements OnInit {
         this.title = params['fname'];
     });
 
-    const response = this.getDiaryService.getTextFile(this.title)
+    const response = await this.getDiaryService.getTextFile(this.title)
     const file = response['data'];
     this.diaryForm.get('date').setValue(file.date);
     this.diaryForm.get('startTime').setValue(file.startTime);
@@ -50,7 +50,7 @@ export class EditComponent implements OnInit {
   async onSubmit() {
     const values = Object.assign(this.diaryForm.value); // Converts the form group to a dictionary.
     values["title"] = this.title;
-    const response = this.getDiaryService.writeTextFile(values);
+    const response = await this.getDiaryService.writeTextFile(values);
     this.status = response["message"];
   }
 }

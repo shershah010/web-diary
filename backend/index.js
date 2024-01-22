@@ -65,14 +65,14 @@ app.get('/entry/:title', (req, res) => {
  *  throws an error to the frontend. Otherwise, generate the mood for the entry 
  * and save it in the database. */
 app.post('/create', (req, res) => {
-  let entry = req.body['entry'];
+  const entry = req.body;
   collection.findOne({title: entry.title}, (error, result) => {
     if (error) {
       // Title already in use.
       res.status(500).send({
         success: 'false',
         message: 'unsuccessful read a file',
-        exists: null
+        data: null
       });
     } else if (result == null) {
       // Get mood of post.
@@ -93,7 +93,7 @@ app.post('/create', (req, res) => {
           res.status(500).send({
             success: 'false',
             message: 'failed to write',
-            exists: false
+            data: false
           });
         } else {
           // Add mood to entry and upload to database.
@@ -111,7 +111,7 @@ app.post('/create', (req, res) => {
           res.status(200).send({
             success: 'true',
             message: 'successful write',
-            exists: false
+            data: false
           });
         }
       });
@@ -120,7 +120,7 @@ app.post('/create', (req, res) => {
       res.status(200).send({
         success: 'true',
         message: 'successful read a file',
-        exists: true
+        data: true
       });
     }
   });
@@ -140,12 +140,14 @@ app.post('/update', (req, res) => {
                               if (error) {
                                 return res.status(500).send({
                                   success: 'false',
-                                  message: 'bad filename'
+                                  message: 'bad filename',
+                                  data: null
                                 });
                               }
                               return res.status(200).send({
                                 success: 'true',
-                                message: 'successful write'
+                                message: 'successful write',
+                                data: null
                               });
                             });
 });

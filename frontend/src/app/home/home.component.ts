@@ -30,8 +30,9 @@ export class HomeComponent implements OnInit {
    * backend, creates Entry objects from them, and orders the entries based on 
    * the orders them by date.
    */
- ngOnInit() { 
-    const response = this.getDiaryService.getEntries();
+ async ngOnInit() { 
+    const response = await this.getDiaryService.getEntries();
+    console.log(response);
     response["data"].forEach(element => {
       this.entries.push(new Entry(element));
     });

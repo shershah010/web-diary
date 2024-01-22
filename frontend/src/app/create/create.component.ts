@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 import { GetDiaryService } from '../service/get-diary.service';
+import { Entry } from '../model/entry';
 
 @Component({
   selector: 'app-create',
@@ -34,13 +35,14 @@ export class CreateComponent implements OnInit {
   }
 
   /** Creates a new entry and prints the response from the backend. */
-  onSubmit() {
+  async onSubmit() {
     const endTime = (new Date()).toLocaleTimeString('en-US', {hour: 'numeric', minute: 'numeric'});
     const values = Object.assign(this.diaryForm.value);
     values['date'] = this.date;
     values['startTime'] = this.startTime;
     values['endTime'] = endTime;
-    const response = this.getDiaryService.writeNewTextFile(values);
+    const entry = new Entry(values);
+    const response = await this.getDiaryService.writeNewTextFile(entry);
     this.status = response['message'];
   }
 

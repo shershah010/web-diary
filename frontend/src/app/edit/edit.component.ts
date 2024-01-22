@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 import { GetDiaryService } from '../service/get-diary.service';
+import { Entry } from '../model/entry';
 
 @Component({
   selector: 'app-edit',
@@ -50,7 +51,8 @@ export class EditComponent implements OnInit {
   async onSubmit() {
     const values = Object.assign(this.diaryForm.value); // Converts the form group to a dictionary.
     values["title"] = this.title;
-    const response = await this.getDiaryService.writeTextFile(values);
+    const entry = new Entry(values);
+    const response = await this.getDiaryService.writeTextFile(entry);
     this.status = response["message"];
   }
 }

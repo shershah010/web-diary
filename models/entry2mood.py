@@ -59,4 +59,4 @@ def get_prediction(text):
         neg += vs['neg']
         pos += vs['pos']
 
-    return int(pos >= neg)
+    return pos >= neg

@@ -37,12 +37,12 @@ export class GetDiaryService {
 
   /** Atempts to create the post but first checks if an entry with the same 
    * title exists. If it does, then inform the user to change the title. */
-  async writeNewTextFile(entry: any) {
+  async writeNewTextFile(entry: Entry) {
     const response = await this.http.post<BackendMsg>('https://web-diary-be.sher.com/create', entry, this.httpOptions).toPromise();
 
     if (response.success == 'false') {
       alert("Please change the title, it is already taken!");
-      return "bad title";
+      return {message: "bad title"};
     } else {
       return response;
     }

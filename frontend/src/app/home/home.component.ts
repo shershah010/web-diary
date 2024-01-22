@@ -38,12 +38,7 @@ export class HomeComponent implements OnInit {
     });
 
     this.entries.sort((a: Entry, b: Entry) => {
-      let aIsBigger = (new Date(a.date)) > (new Date(b.date));
-      if (aIsBigger) {
-        return -1;
-      } else {
-        return 1;
-      }
+      return (new Date(a.date)) < (new Date(b.date)) ? 1 : -1;
     });
   }
 

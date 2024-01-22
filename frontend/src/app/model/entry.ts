@@ -4,17 +4,21 @@
 export class Entry {
     title: string;
     date: string;
+    content: string;
     startTime: string;
     endTime: string;
     preview: string;
-    color: string;
+    goodMood?: boolean;
+    color?: string;
   
     constructor(entry: any) {
       this.title = entry.title;
       this.date = entry.date;
       this.startTime = entry.startTime;
       this.endTime = entry.endTime;
+      this.content = entry.content;
       this.preview = entry.content.substr(0, 50) + "...";
+      this.goodMood = entry.goodMood;
       this.color = entry.goodMood ? '#DEF3FD' : '#FDDFDF'
     }
   

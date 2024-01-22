@@ -43,7 +43,7 @@ export class CreateComponent implements OnInit {
     values['endTime'] = endTime;
     const entry = new Entry(values);
     const response = await this.getDiaryService.writeNewTextFile(entry);
-    this.status = response['message'];
+    this.status = response.message;
   }
 
 }

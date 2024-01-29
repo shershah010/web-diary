@@ -31,7 +31,8 @@ export class GetDiaryService {
     // The Observable returned by get() is of type Observable<string>
     // because a text response was specified.
     // There's no need to pass a <string> type parameter to get().
-    const response =  await this.http.get<BackendMsg>('https://web-diary-be.sher.com/entry/' + filename, this.httpOptions).toPromise();
+    const safeFilename = encodeURIComponent(filename);
+    const response =  await this.http.get<BackendMsg>('https://web-diary-be.sher.com/entry/' + safeFilename, this.httpOptions).toPromise();
     return response;
   }
 
